@@ -5,16 +5,12 @@ pipeline {
   }
   agent any
   stages {
-    stage('Building image') {
+    stage('Building image and push') {
       steps{
         script {
           def customImage = docker.build registry + ":$BUILD_NUMBER"
+		  customImage.push()
         }
-      }
-    }
-   stage('Push container to registry') {
-      steps {
-        customImage.push()
       }
     }
   }
