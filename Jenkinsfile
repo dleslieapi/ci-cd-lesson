@@ -2,13 +2,14 @@ pipeline {
   environment {
     registry = "dleslieapi/learning"
     registryCredential = 'dockerhub'
+	dockerImage = ''
   }
   agent any
   stages {
     stage('Building image') {
       steps{
         script {
-			def myImage = docker.build registry + ":$BUILD_NUMBER"
+			def dockerImage = docker.build registry + ":$BUILD_NUMBER"
 			
         }
       }
@@ -17,7 +18,7 @@ pipeline {
 		steps {
 			script {
 				docker.withRegistry('', registryCredential) {
-					myImage.push()
+					dockerImage.push()
 				}
 			}
 		}
