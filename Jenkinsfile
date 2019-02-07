@@ -9,8 +9,7 @@ pipeline {
     stage('Building image') {
       steps{
         script {
-			def dockerImage = docker.build registry + ":$BUILD_NUMBER"
-			
+			dockerImage = docker.build registry + ":$BUILD_NUMBER"
         }
       }
     }
