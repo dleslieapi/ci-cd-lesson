@@ -14,8 +14,12 @@ pipeline {
       }
     }
 	stage('Deploy image') {
-		docker.withRegistry('', 'ZGxlc2xpZWFwaQ==:dGVzdGluZw==') {
-			myImage.push()
+		steps {
+			script {
+				docker.withRegistry('', 'ZGxlc2xpZWFwaQ==:dGVzdGluZw==') {
+					myImage.push()
+				}
+			}
 		}
 	}
   }
