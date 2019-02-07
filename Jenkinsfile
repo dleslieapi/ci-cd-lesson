@@ -5,14 +5,18 @@ pipeline {
   }
   agent any
   stages {
-    stage('Building image and push') {
+    stage('Building image') {
       steps{
         script {
-		  sh 'docker login -u dleslieapi -p testing'
-          def customImage = docker.build registry + ":$BUILD_NUMBER"
-		  customImage.push()
+			def myImage = docker.build registry + ":$BUILD_NUMBER"
+			
         }
       }
     }
+	stage('Deploy image') {
+		docker.withRegistry('', 'ZGxlc2xpZWFwaQ==:dGVzdGluZw==') {
+			myImage.push()
+		}
+	}
   }
 }
